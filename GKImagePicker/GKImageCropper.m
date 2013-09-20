@@ -248,8 +248,10 @@ UIImage* imageFromView(UIImage* srcImage, CGRect* rect) {
         self.image = [self.image resizedImage:CGSizeMake(self.cropSize.width*self.rescaleFactor,self.cropSize.height*self.rescaleFactor) interpolationQuality:kCGInterpolationDefault];
     }
     
-    [self dismissModalViewControllerAnimated:self.dismissAnimated];
-    [self.delegate imageCropperDidFinish:self withImage:self.image];
+    [self dismissViewControllerAnimated:self.dismissAnimated completion:^{
+        [self.delegate imageCropperDidFinish:self withImage:self.image];
+    }];
+    
 }
 
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {

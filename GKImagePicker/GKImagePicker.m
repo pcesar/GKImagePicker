@@ -75,7 +75,9 @@
     // * Show GKImageCropper
     // **********************************************
     self.cropper.image = image;
-    [(UIViewController *)self.delegate presentModalViewController:[[UINavigationController alloc] initWithRootViewController:self.cropper] animated:YES];
+    [(UIViewController *)self.delegate presentViewController:[[UINavigationController alloc] initWithRootViewController:self.cropper] animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - Image picker methods
@@ -115,7 +117,9 @@
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.delegate = self;
     picker.allowsEditing = NO;
-    [(UIViewController *)self.delegate presentModalViewController:picker animated:YES];
+    [(UIViewController *)self.delegate presentViewController:picker animated:YES completion:^{
+        
+    }];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
@@ -124,7 +128,9 @@
 }
 
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary*)info {
-    [picker dismissModalViewControllerAnimated:NO];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
     // Extract image from the picker
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     if ([mediaType isEqualToString:@"public.image"]){

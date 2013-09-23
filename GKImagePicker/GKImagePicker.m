@@ -65,7 +65,7 @@
     // **********************************************
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Image from Camera", @"Image from Gallery", nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    actionSheet.alpha=0.90;
+    //actionSheet.alpha=0.90;
     actionSheet.tag = 1;
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
 }
@@ -123,20 +123,22 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
-    [picker dismissModalViewControllerAnimated:NO];
-    [self presentImageCropperWithImage:image];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self presentImageCropperWithImage:image];
+    }];
+    
 }
 
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary*)info {
     [picker dismissViewControllerAnimated:YES completion:^{
-        
+        // Extract image from the picker
+        NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+        if ([mediaType isEqualToString:@"public.image"]){
+            UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+            [self presentImageCropperWithImage:image];
+        }
     }];
-    // Extract image from the picker
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    if ([mediaType isEqualToString:@"public.image"]){
-        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        [self presentImageCropperWithImage:image];
-    }
+    
 }
 
 #pragma mark - GKImageCropper delegate methods

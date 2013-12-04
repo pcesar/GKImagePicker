@@ -63,7 +63,7 @@
     // **********************************************
     // * Show action sheet that will allow image selection from camera or gallery
     // **********************************************
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Image from Camera", @"Image from Gallery", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:(id)self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose From Library", nil];
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     //actionSheet.alpha=0.90;
     actionSheet.tag = 1;
